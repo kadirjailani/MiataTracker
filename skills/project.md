@@ -31,6 +31,18 @@ Build a local Python application that tracks the used Mazda MX-5 market by colle
 - Only implement what is requested.
 - Preserve existing project structure.
 
+## Development Workflow
+
+Before implementing any task:
+
+1. Understand the requested change.
+2. Review existing project files.
+3. Reuse existing code whenever possible.
+4. Keep changes minimal.
+5. Avoid introducing new dependencies unless requested.
+6. Preserve backwards compatibility.
+7. Verify that the implementation matches the project scope.
+
 ## Documentation Rules
 - README reflects only implemented functionality.
 - Planned work belongs in roadmap documentation.
