@@ -46,6 +46,17 @@ Do not invent missing values.
 - Strip unnecessary whitespace.
 - Normalize extracted text.
 
+## Selector Strategy
+
+Prefer selectors based on:
+
+1. Stable element IDs
+2. Semantic class names
+3. HTML attributes
+4. Text content only as a last resort
+
+Avoid deeply nested CSS selectors unless absolutely necessary.
+
 ## HTTP Requests
 
 - Set a descriptive User-Agent.
