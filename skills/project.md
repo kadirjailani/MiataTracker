@@ -43,6 +43,32 @@ Before implementing any task:
 6. Preserve backwards compatibility.
 7. Verify that the implementation matches the project scope.
 
+## Decision Priority
+
+When making implementation decisions, follow this order:
+
+1. Project requirements
+2. Existing project architecture
+3. Simplicity
+4. Readability
+5. Performance
+6. Extensibility
+
+Never sacrifice simplicity for premature optimization.
+
+## Anti-Patterns
+
+Never:
+
+- Assume requirements.
+- Add frameworks.
+- Add databases.
+- Add authentication.
+- Add APIs.
+- Add configuration files unless requested.
+- Rename existing modules.
+- Replace working code without reason.
+
 ## Documentation Rules
 - README reflects only implemented functionality.
 - Planned work belongs in roadmap documentation.
