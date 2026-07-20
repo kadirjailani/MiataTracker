@@ -43,6 +43,19 @@ Before implementing any task:
 6. Preserve backwards compatibility.
 7. Verify that the implementation matches the project scope.
 
+## Decision Ladder
+
+Before writing code, always ask:
+
+1. Does this feature need to exist?
+2. Can existing code be reused?
+3. Can the Python standard library solve it?
+4. Can an installed dependency solve it?
+5. Can the solution be simplified?
+6. Implement the smallest solution that works.
+
+Never add complexity without a clear requirement.
+
 ## Decision Priority
 
 When making implementation decisions, follow this order:
