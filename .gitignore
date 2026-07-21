@@ -4,3 +4,4 @@ __pycache__/
 data/pages/
 data/report.md
 data/forecast.png
+*.pyc
