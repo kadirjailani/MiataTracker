@@ -11,7 +11,7 @@ import requests
 from logger import get_logger
 
 OLLAMA_URL = 'http://localhost:11434/api/generate'
-OLLAMA_MODEL = 'qwen2.5'
+OLLAMA_MODEL = 'qwen3.5:9b'
 OLLAMA_TIMEOUT = 120
 
 log = get_logger(__name__)
