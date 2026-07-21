@@ -1,2 +1,6 @@
 .venv
 .aider*
+__pycache__/
+data/pages/
+data/report.md
+data/forecast.png
