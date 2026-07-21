@@ -1,7 +1,8 @@
 """Listing collection for MiataTracker.
 
-Parses carlist.my listing pages that the user saved manually while browsing
-(File > Save Page As). Live fetching is kept for pages that allow it.
+Parses carlist.my and mudah.my listing pages that the user saved manually
+while browsing (File > Save Page As). Live fetching is kept for pages that
+allow it.
 """
 
 from __future__ import annotations
@@ -68,8 +69,11 @@ def parse_saved_page(path: str | Path) -> CarListing | None:
 
 
 def _parse_listing_html(html: str) -> CarListing:
-    """Extract listing fields from carlist.my HTML (JSON-LD + meta tags)."""
+    """Extract listing fields from a saved page, dispatching on the site."""
     soup = BeautifulSoup(html, 'lxml')
+    next_data = soup.find('script', id='__NEXT_DATA__')
+    if next_data is not None and next_data.string:
+        return _parse_mudah(json.loads(next_data.string))
     car = _json_ld_car(soup)
     price_tag = soup.find('meta', attrs={'itemprop': 'price'})
     if price_tag is None:
@@ -83,6 +87,25 @@ def _parse_listing_html(html: str) -> CarListing:
         transmission=transmission_tag['content'].strip() if transmission_tag else '',
         location=_location(html),
         url=str(car['url']).strip(),
+    )
+
+
+def _parse_mudah(next_data: dict) -> CarListing:
+    """Extract listing fields from mudah.my's __NEXT_DATA__ JSON."""
+    ads = next_data['props']['initialState']['adDetails']['byID']
+    attrs = next(iter(ads.values()))['attributes']
+    params = {p['id']: p['value'] for p in attrs['categoryParams']}
+    # mudah gives mileage as a bucket like "25 000 - 29 999"; use the midpoint
+    bounds = [int(n.replace(' ', '')) for n in params.get('mileage', '').split('-') if n.strip()]
+    mileage = sum(bounds) // len(bounds) if bounds else 0
+    return CarListing(
+        title=attrs['subject'].strip(),
+        price=float(attrs['carForSalePrice']),
+        year=int(params['manufactured_date']),
+        mileage=mileage,
+        transmission=params.get('transmission', ''),
+        location=f"{attrs['subregionName']}, {attrs['regionName']}",
+        url=attrs['adviewUrl'].strip(),
     )
 
 
