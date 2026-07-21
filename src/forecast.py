@@ -15,6 +15,7 @@ from prophet import Prophet
 from models import CarListing
 
 MIN_RECORDS = 10
+MIN_DISTINCT_DATES = 5
 
 
 def prepare_history(listings: list[CarListing]) -> pd.DataFrame:
@@ -38,6 +39,12 @@ def forecast_prices(listings: list[CarListing], periods: int = 30) -> pd.DataFra
     if len(history) < MIN_RECORDS:
         raise ValueError(
             f'Need at least {MIN_RECORDS} dated listings to forecast, got {len(history)}.'
+        )
+    distinct_dates = history['ds'].nunique()
+    if distinct_dates < MIN_DISTINCT_DATES:
+        raise ValueError(
+            f'Need listings from at least {MIN_DISTINCT_DATES} different dates '
+            f'to forecast a trend, got {distinct_dates}.'
         )
     model = Prophet()
     model.fit(history)
