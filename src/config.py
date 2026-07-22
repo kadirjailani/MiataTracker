@@ -5,9 +5,9 @@ from __future__ import annotations
 import os
 
 DEFAULTS: dict[str, str] = {
-    'SCRAPER_URLS': '',
-    'LOG_LEVEL': 'INFO',
-    'DATA_DIR': 'data',
+    "SCRAPER_URLS": "",
+    "LOG_LEVEL": "INFO",
+    "DATA_DIR": "data",
 }
 
 
