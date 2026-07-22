@@ -33,7 +33,7 @@ def generate_ai_analysis(stats: dict[str, float | int], prediction: pd.DataFrame
     try:
         response = requests.post(
             OLLAMA_URL,
-            json={'model': OLLAMA_MODEL, 'prompt': prompt, 'stream': False},
+            json={'model': OLLAMA_MODEL, 'prompt': prompt, 'stream': False, 'think': False, 'options': {'num_predict': 180, 'temperature': 0.3}},
             timeout=OLLAMA_TIMEOUT,
         )
         response.raise_for_status()
